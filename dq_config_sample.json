@@ -1,0 +1,57 @@
+{
+    "checks": [
+      {
+        "check_type": "EXCEPT",
+        "check_name": "Compare sales and archived_sales by sale_id",
+        "main_table": "sales",
+        "compare_table": "archived_sales",
+        "column_name": "sale_id"
+      },
+      {
+        "check_type": "RECON",
+        "check_name": "Total amount recon between sales and archived_sales",
+        "main_table": "sales",
+        "compare_table": "archived_sales",
+        "agg_function": "sum",
+        "business_date": "20240501",
+        "date_column": "sale_date",
+        "column_name": "sale_id"
+      },
+      {
+        "check_type": "TREND",
+        "check_name": "Sales amount trend for last 7 days",
+        "main_table": "sales",
+        "compare_table": "sales",
+        "column_name": "amount",
+        "agg_function": "sum",
+        "business_date": "20240501",
+        "date_column": "sale_date",
+        "threshhold": 10
+      },
+      {
+        "check_type": "TREND",
+        "check_name": "Sales trend using custom query",
+        "main_table": "SELECT SUM(amount) as value, sale_date FROM sales GROUP BY sale_date",
+        "compare_table": "SELECT AVG(trend) as value FROM (SELECT SUM(amount) as trend, sale_date FROM sales WHERE sale_date < 20240501 GROUP BY sale_date)",
+        "column_name": "amount",
+        "agg_function": "sum",
+        "business_date": "20240501",
+        "date_column": "sale_date",
+        "threshhold": 15
+      },
+      {
+        "check_type": "NULL",
+        "check_name": "Check for nulls in customer_id",
+        "main_table": "sales",
+        "column_name": "customer_id",
+        "business_date": "20240501",
+        "date_column": "sale_date"
+      },
+      {
+        "check_type": "CUSTOM",
+        "check_name": "Detect negative sales amount",
+        "main_table": "SELECT * FROM sales WHERE amount < 0"
+      }
+    ]
+  }
+  
