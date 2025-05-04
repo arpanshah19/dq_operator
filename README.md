@@ -59,7 +59,7 @@ Runs a single DQ check:
 A Python class to generate and optionally execute SQL-based DQ checks in **Airflow**, **Databricks**, or any Python-based workflow.
 
 Supports:
-- Easy method calls with overloads: `DataQuality.check(...)`
+- Easy method calls with overloads: `DQQueryBuilder.check(...)`
 - Direct SQL generation for `TREND`, `RECON`, `EXCEPT`, `NULL`, and `CUSTOM`
 - Clean integration into pipelines with or without orchestration tools
 
@@ -85,7 +85,7 @@ Supports:
 from dq_framework import DataQuality
 
 def generate_dq_query():
-    return DataQuality.check(
+    return DQQueryBuilder.check(
         check_type='RECON',
         check_name='Sales aggregation match',
         main_table='sales_fact',
@@ -101,7 +101,7 @@ def generate_dq_query():
 ```python
 from dq_framework import DataQuality
 
-dq_sql = DataQuality.check(
+dq_sql = DQQueryBuilder.check(
     check_type='TREND',
     check_name='Login anomaly detection',
     source_query='SELECT COUNT(*) AS value FROM login_events WHERE login_date = "20250101"',
