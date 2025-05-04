@@ -52,9 +52,15 @@ Runs a single DQ check:
 - Creates an Airflow task per DQ rule
 - Wraps logic inside `DataQualityOperator`
 
+### `DQQueryBuilder()`
+
+- Create a query to execute for dataquality check
+- Direct SQL generation for `TREND`, `RECON`, `EXCEPT`, `NULL`, and `CUSTOM`
+- Clean integration into pipelines with or without orchestration tools
+
 ---
 
-## ⚙️ The DQ Framework (Reusable Outside Airflow)
+## ⚙️ The DQ Framework (With or Without Airflow)
 
 A Python class to generate and optionally execute SQL-based DQ checks in **Airflow**, **Databricks**, or any Python-based workflow.
 
